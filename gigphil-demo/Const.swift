@@ -11,14 +11,14 @@ import Foundation
 enum Const {
     // UserDefault
     enum UserDefaultKeys {
-      static let resetToken = "resetToken"
+      static let accessToken = "accessToken"
       static let refershToken = "refershToken"
       static let tokenExpiresAt = "tokenExpiresAt"
     }
     
     // API
     struct API {
-        static let domain = "gigphil.herokuapp.com"
-        static let host = "https://\(domain)/api"
+        static let domain : String = "gigphil.herokuapp.com"
+        static let host : String = "https://\(domain)/api"
     }
 }
