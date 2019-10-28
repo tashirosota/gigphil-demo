@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4F7D4FCF2365996400B6540F /* SessionCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7D4FCE2365996400B6540F /* SessionCheck.swift */; };
+		4F5904252367B05600228CC2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5904242367B05600228CC2 /* User.swift */; };
+		4F5904282367B06A00228CC2 /* SessionCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5904272367B06A00228CC2 /* SessionCheck.swift */; };
 		4F7D4FD123659A0000B6540F /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7D4FD023659A0000B6540F /* Const.swift */; };
 		4FC1C78223659355004E5F1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC1C78123659355004E5F1B /* AppDelegate.swift */; };
 		4FC1C78423659355004E5F1B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC1C78323659355004E5F1B /* SceneDelegate.swift */; };
@@ -20,7 +21,8 @@
 
 /* Begin PBXFileReference section */
 		0832029D086A3EAF90C8D5D7 /* Pods_gigphil_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_gigphil_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4F7D4FCE2365996400B6540F /* SessionCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCheck.swift; sourceTree = "<group>"; };
+		4F5904242367B05600228CC2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		4F5904272367B06A00228CC2 /* SessionCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCheck.swift; sourceTree = "<group>"; };
 		4F7D4FD023659A0000B6540F /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		4FC1C77E23659355004E5F1B /* gigphil-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gigphil-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC1C78123659355004E5F1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,9 +54,25 @@
 				B73B3AC4C994A1DAFA79A1D8 /* Pods-gigphil-demo.debug.xcconfig */,
 				B3C327C5FA80B75186F4035E /* Pods-gigphil-demo.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		4F5904232367B05600228CC2 /* himotoki */ = {
+			isa = PBXGroup;
+			children = (
+				4F5904242367B05600228CC2 /* User.swift */,
+			);
+			path = himotoki;
+			sourceTree = "<group>";
+		};
+		4F5904262367B06A00228CC2 /* domain */ = {
+			isa = PBXGroup;
+			children = (
+				4F5904272367B06A00228CC2 /* SessionCheck.swift */,
+			);
+			name = domain;
+			path = "gigphil-demo/domain";
+			sourceTree = SOURCE_ROOT;
 		};
 		4FC1C77523659354004E5F1B = {
 			isa = PBXGroup;
@@ -77,15 +95,16 @@
 		4FC1C78023659355004E5F1B /* gigphil-demo */ = {
 			isa = PBXGroup;
 			children = (
+				4F5904262367B06A00228CC2 /* domain */,
+				4FC1C78F23659355004E5F1B /* Info.plist */,
 				4FC1C78123659355004E5F1B /* AppDelegate.swift */,
-				4F7D4FCE2365996400B6540F /* SessionCheck.swift */,
+				4F7D4FD023659A0000B6540F /* Const.swift */,
 				4FC1C78323659355004E5F1B /* SceneDelegate.swift */,
 				4FC1C78523659355004E5F1B /* ViewController.swift */,
-				4FC1C78723659355004E5F1B /* Main.storyboard */,
+				4F5904232367B05600228CC2 /* himotoki */,
 				4FC1C78A23659355004E5F1B /* Assets.xcassets */,
 				4FC1C78C23659355004E5F1B /* LaunchScreen.storyboard */,
-				4FC1C78F23659355004E5F1B /* Info.plist */,
-				4F7D4FD023659A0000B6540F /* Const.swift */,
+				4FC1C78723659355004E5F1B /* Main.storyboard */,
 			);
 			path = "gigphil-demo";
 			sourceTree = "<group>";
@@ -216,8 +235,9 @@
 				4FC1C78623659355004E5F1B /* ViewController.swift in Sources */,
 				4FC1C78223659355004E5F1B /* AppDelegate.swift in Sources */,
 				4FC1C78423659355004E5F1B /* SceneDelegate.swift in Sources */,
-				4F7D4FCF2365996400B6540F /* SessionCheck.swift in Sources */,
 				4F7D4FD123659A0000B6540F /* Const.swift in Sources */,
+				4F5904252367B05600228CC2 /* User.swift in Sources */,
+				4F5904282367B06A00228CC2 /* SessionCheck.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

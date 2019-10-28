@@ -7,21 +7,17 @@
 //
 
 import Foundation
-import Himotoki
+
+// 現状tokenExpiresAtを無視した設計になっているので、
+// 動作全てにフック出来たらtokenExpiresAtを考慮した作りに直す
+// 今は起動時のみ必ずsessionを更新するように呼んでいる
 
 class SessionCheck {
     var isUnregistered : Bool = false
-    var isExpired : Bool = false
+    var isLunchEvent : Bool = false
     
     init(){
-        if let expiresAt = UserDefaults.standard.string(forKey: Const.UserDefaultKeys.tokenExpiresAt) {
-            //すでに登録済みの場合は期限が切れていないかどうかを確認する
-            let currntDateTime = Date()
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ'"
-            let expiresDateTime = dateFormatter.date(from: expiresAt)
-            if currntDateTime.compare(expiresDateTime!) == .orderedDescending { isExpired = true }
-        } else {
+        if UserDefaults.standard.string(forKey: Const.UserDefaultKeys.tokenExpiresAt) == nil {
              isUnregistered = true
         }
     }
@@ -30,7 +26,7 @@ class SessionCheck {
         if(isUnregistered){
             registUser()
         } else {
-            if(isExpired){ updateSession() }
+           updateSession()
         }
     }
     
@@ -47,8 +43,7 @@ class SessionCheck {
                session.finishTasksAndInvalidate()
                do {
                     let json = try JSONSerialization.jsonObject(with: data!)
-                    let user = try User.decodeValue(json)
-                    print(user)
+                    let user = try User.decodeValue(json, rootKeyPath: ["data", "attributes"])
                     UserDefaults.standard.set(user.token_expires_at, forKey: Const.UserDefaultKeys.tokenExpiresAt)
                     UserDefaults.standard.set(user.access_token, forKey: Const.UserDefaultKeys.accessToken)
                } catch {
@@ -69,7 +64,7 @@ class SessionCheck {
                session.finishTasksAndInvalidate()
                do {
                     let json = try JSONSerialization.jsonObject(with: data!)
-                    let user = try User.decodeValue(json)
+                    let user = try User.decodeValue(json, rootKeyPath: ["data", "attributes"])
                     UserDefaults.standard.set(user.token_expires_at, forKey: Const.UserDefaultKeys.tokenExpiresAt)
                     UserDefaults.standard.set(user.access_token, forKey: Const.UserDefaultKeys.accessToken)
                     UserDefaults.standard.set(user.refresh_token, forKey: Const.UserDefaultKeys.refreshToken)
@@ -78,19 +73,5 @@ class SessionCheck {
                }
         })
         task.resume()
-    }
-}
-
-// decodeする必要あるん？
-struct User : Himotoki.Decodable{
-    var token_expires_at: String
-    var access_token: String?
-    var refresh_token: String?
-    static func decode(_ e: Extractor) throws -> User {
-        return try User(
-            token_expires_at: e <| ["data", "attributes","token_expires_at"],
-            access_token: e <| ["data", "attributes","access_token"],
-            refresh_token: e <|? ["data", "attributes","refresh_token"]
-        )
     }
 }
