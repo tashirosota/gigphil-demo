@@ -12,7 +12,7 @@ enum Const {
     // UserDefault
     enum UserDefaultKeys {
       static let accessToken = "accessToken"
-      static let refershToken = "refershToken"
+      static let refreshToken = "refreshToken"
       static let tokenExpiresAt = "tokenExpiresAt"
     }
     

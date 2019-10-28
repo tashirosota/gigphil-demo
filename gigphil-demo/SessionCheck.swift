@@ -17,7 +17,6 @@ class SessionCheck {
         if let expiresAt = UserDefaults.standard.string(forKey: Const.UserDefaultKeys.tokenExpiresAt) {
             //すでに登録済みの場合は期限が切れていないかどうかを確認する
             let currntDateTime = Date()
-            print(currntDateTime)
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ'"
             let expiresDateTime = dateFormatter.date(from: expiresAt)
@@ -37,7 +36,9 @@ class SessionCheck {
     
     private func updateSession() {
         let path = "/session"
-        guard let req_url = URL(string: Const.API.host + path) else { return }
+        guard let req_url = URL(
+                string: Const.API.host + path + "?refresh_token=" + UserDefaults.standard.string(forKey: Const.UserDefaultKeys.refreshToken)!
+            ) else { return }
         var request = URLRequest(url: req_url)
         request.httpMethod = "PUT"
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
@@ -47,7 +48,9 @@ class SessionCheck {
                do {
                     let json = try JSONSerialization.jsonObject(with: data!)
                     let user = try User.decodeValue(json)
+                    print(user)
                     UserDefaults.standard.set(user.token_expires_at, forKey: Const.UserDefaultKeys.tokenExpiresAt)
+                    UserDefaults.standard.set(user.access_token, forKey: Const.UserDefaultKeys.accessToken)
                } catch {
                     print(error)
                }
@@ -69,7 +72,7 @@ class SessionCheck {
                     let user = try User.decodeValue(json)
                     UserDefaults.standard.set(user.token_expires_at, forKey: Const.UserDefaultKeys.tokenExpiresAt)
                     UserDefaults.standard.set(user.access_token, forKey: Const.UserDefaultKeys.accessToken)
-                    UserDefaults.standard.set(user.refresh_token, forKey: Const.UserDefaultKeys.refershToken)
+                    UserDefaults.standard.set(user.refresh_token, forKey: Const.UserDefaultKeys.refreshToken)
                } catch {
                     print(error)
                }
@@ -86,7 +89,7 @@ struct User : Himotoki.Decodable{
     static func decode(_ e: Extractor) throws -> User {
         return try User(
             token_expires_at: e <| ["data", "attributes","token_expires_at"],
-            access_token: e <|? ["data", "attributes","access_token"],
+            access_token: e <| ["data", "attributes","access_token"],
             refresh_token: e <|? ["data", "attributes","refresh_token"]
         )
     }
